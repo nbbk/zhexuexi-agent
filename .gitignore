@@ -1,0 +1,26 @@
+# 密钥与签名（绝不进仓，丢了不能从仓库找回）
+*.pem
+*.key
+*.jks
+*.keystore
+signing-config.properties
+node-agent-token.txt
+
+# 本地配置与账本（只在机器上有）
+/etc/node-agent/
+ledger.json
+*.local.json
+.env
+.env.local
+
+# 构建产物（重新编就有）
+node-agent
+node-agent-*
+*.exe
+build/
+
+# IDE 与系统
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
