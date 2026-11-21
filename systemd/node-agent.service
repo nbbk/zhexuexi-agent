@@ -1,0 +1,21 @@
+[Unit]
+Description=Zhexuexi node-agent：落地 Xray 按人计量，推回面板
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/node-agent run --config /etc/node-agent/config.json
+Restart=on-failure
+RestartSec=5
+# 崩溃自动重启；日志走 journald（上限 100M，不要无上限记日志，
+# 见 DEV-PLAN §1.2 与面板的日志上限规矩）。
+StandardOutput=journal
+StandardError=journal
+# 配置与账本在 /etc/node-agent/（600 权限，含节点令牌），
+# agent 只读写自己的目录，不碰面板与 Xray 的配置。
+ProtectSystem=strict
+ReadWritePaths=/etc/node-agent
+
+[Install]
+WantedBy=multi-user.target

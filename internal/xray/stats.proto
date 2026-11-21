@@ -1,0 +1,46 @@
+// Xray StatsService 的最小子集（只取 agent 要用的两个方法）。
+//
+// 来源：Xray-core 的 app/stats/command/stats.proto（StatsService）。
+// 本文件只抄 GetStats / QueryStats 两个方法与 Stat 消息的字段，不抄
+// SysStats / HandlerService——那是 Phase 1（AlterInbound）再加的。
+// 生成命令（本机 protoc 25.1 + protoc-gen-go v1.34.2）：
+//
+//   protoc -I internal/xray --go_out=internal/xray/statspb \
+//     --go_opt=paths=source_relative stats.proto
+//
+// gRPC 的客户端 stub 是手写的（internal/xray/grpc_client.go），
+// 没用 protoc-gen-go-grpc：它的安装在 v1.64.0 下解析不到，
+// 两个方法的 stub 只有几十行，手写更省事，行为与生成代码一致。
+syntax = "proto3";
+
+package xray.app.stats.command;
+
+option go_package = "github.com/nbbk/zhexuexi-agent/internal/xray/statspb";
+
+service StatsService {
+  rpc GetStats(GetStatsRequest) returns (GetStatsResponse);
+  rpc QueryStats(QueryStatsRequest) returns (QueryStatsResponse);
+}
+
+message GetStatsRequest {
+  string name = 1;
+  bool reset = 2;
+}
+
+message GetStatsResponse {
+  Stat stat = 1;
+}
+
+message QueryStatsRequest {
+  string pattern = 1;
+  bool reset = 2;
+}
+
+message QueryStatsResponse {
+  repeated Stat stat = 1;
+}
+
+message Stat {
+  string name = 1;
+  int64 value = 2;
+}

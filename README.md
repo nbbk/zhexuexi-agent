@@ -22,7 +22,11 @@
 
 ## 状态
 
-方案与建仓阶段：只做了方案与建仓，**不写应用代码、不打包**。开发按 [DEV-PLAN.md](DEV-PLAN.md) 的进度走，A 线约 6–8 周（Phase 0 只数总量 → Phase 1 试点按人 → Phase 2 执法 + 迁移 → Phase 3 sing-box 定夺 + 全落地推广）。
+阶段 0 已完成（v0.1.0-stage0）：Go 工程骨架 + `QueryStats` 最小验证
+（mock Xray 服务上测过）+ 接口审计。`node-agent version` 与
+`node-agent doctor` 能跑，`run` 只做快照 + 账本，不推送、不执法。
+**未做：** 真 Xray 实测、真实落地、推送（Phase 0）、入网 join、
+执法（Phase 2）。开发按 [DEV-PLAN.md](DEV-PLAN.md) 的进度走，A 线约 6–8 周（Phase 0 只数总量 → Phase 1 试点按人 → Phase 2 执法 + 迁移 → Phase 3 sing-box 定夺 + 全落地推广）。
 
 ## 用户已拍板（2026-11-21 23:27，流量限制选方案 2）
 
