@@ -21,3 +21,10 @@
 - 接口审计：`docs/interface-audit.md`（面板 1.3.29 代码实测：`rpt_` 认证与 `central/user-traffic` 只读接口可复用；`GET /api/v1/node/users`、`POST /api/v1/node/push`、`GET /api/v1/node/config` 三个新接口与 `node_uuids` / `metering_source` / agent 状态三个字段全缺，panel-adapter 单独转接做不到推送，须拍板 D10）；`docs/protocol-tracker.md`（落地 Xray 没钉死版本，`install.sh` 用 `latest`，与 DEV-PLAN §3.2 要求不符，试点前定）。
 - 测试：`go test -race ./...` 18 个全过（含基线倒退不重加、推送失败加回、翻周期幂等、reset 永远 false）；`gofmt` 与 `go vet` 全过；静态二进制 `CGO_ENABLED=0 go build` 能编。
 - 未做：真 Xray 实测、真实落地、推送（Phase 0）、入网 join、执法（Phase 2）、真机验证。
+
+### v0.1.1 试点落地纠正：印尼排除、改选智利（2026-11-22）
+
+- 试点落地改选智利落地：用户 2026-11-22 05:00 说智利落地可以用，05:01 明确说印尼落地是客户定制、不要用。`docs/pilot-choice.md` 结论已改（§0.4–§0.5、§3、§4、§6、§7），DEV-PLAN.md 的 D3 行与第 1 周行已同步改。
+- 印尼落地全程不碰：不再确认、不再上机操作、不再作为试点或备选；其 Xray 实证等调查事实保留在 `docs/pilot-choice.md` §2 备查，不作选择依据。
+- 智利落地开工前置条件：须先真机确认核心是 Xray（容器名 / 注册表）；若确认不是 Xray，停下来汇报，不要擅自换试点。
+- 未做：智利核心真机确认、Phase 0 统计配置、推送、真机验证。
